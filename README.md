@@ -1,4 +1,6 @@
 [![Clojars Project](https://img.shields.io/clojars/v/org.clojars.nenadalm/uri.svg)](https://clojars.org/org.clojars.nenadalm/uri)
+[![Build Status](https://secure.travis-ci.org/nenadalm/uri.png?branch=master)](http://travis-ci.org/nenadalm/uri)
+[![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0)
 
 This is a library that makes working with URIs in Clojure and ClojureScript a
 little more pleasant.
