@@ -1,44 +1,9 @@
+[![Clojars Project](https://img.shields.io/clojars/v/org.clojars.nenadalm/uri.svg)](https://clojars.org/org.clojars.nenadalm/uri)
+
 This is a library that makes working with URIs in Clojure and ClojureScript a
 little more pleasant.
 
-Fork of [cemerick/url](https://github.com/cemerick/url), only difference is this uses `java.net.URI` rather than `java.net.URL`
-
-Q: Why do I care about this difference?
-
-A: tl;dr Java assumes it knows how to openConnection() all URLs. If you have something that looks like a URL that Java doesn't know how to open (i.e. postgres or kafka connection URIs), it will throw. 
-
-Longer:
-
-> Since the URL class has an openConnection method, the URL class checks to make sure that Java knows how to open a connection of the correct protocol. Without a URLStreamHandler for that protocol, Java refuses to create a URL to save you from failure when you try to call openConnection.
-
-See also
-https://stackoverflow.com/questions/2406518/why-does-javas-url-class-not-recognize-certain-protocols
-
-https://github.com/cemerick/url/issues/3
-
-## "Installation"
-
-uri is available in Clojars. Add this `:dependency` to your Leiningen
-`project.clj`:
-
-```clojure
-[com.arohner/uri "0.1.2"]
-```
-
-Or, add this to your Maven project's `pom.xml`:
-
-```xml
-<repository>
-  <id>clojars</id>
-  <url>http://clojars.org/repo</url>
-</repository>
-
-<dependency>
-  <groupId>com.arohner</groupId>
-  <artifactId>uri</artifactId>
-  <version>0.1.2</version>
-</dependency>
-```
+Fork of [arohner/uri](https://github.com/arohner/uri) with support for nested parames and clojurescript.
 
 ## Usage
 
@@ -94,10 +59,6 @@ to passing them to `uri`.  e.g.:
 => (str (uri download-root (uri-encode "/logical/file/path")))
 "http://foo.com/dl/%2Flogical%2Ffile%2Fpath"
 ```
-
-## Limitations
-
-CLJS should work, but is currently untested because I don't need it ATM.
 
 ## License
 
