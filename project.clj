@@ -1,4 +1,4 @@
-(defproject com.widdindustries/uri "0.1.3"
+(defproject gowerstreet/uri "0.1.3"
   :description "Makes working with URLs in Clojure a little more pleasant."
   :url "https://github.com/henryw374/uri"
   :license {:name "Eclipse Public License"
