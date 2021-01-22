@@ -1,6 +1,10 @@
-[![Clojars Project](https://img.shields.io/clojars/v/org.clojars.nenadalm/uri.svg)](https://clojars.org/org.clojars.nenadalm/uri)
-[![Build Status](https://secure.travis-ci.org/nenadalm/uri.png?branch=master)](http://travis-ci.org/nenadalm/uri)
+[![Clojars Project](https://img.shields.io/clojars/v/henryw374/uri.svg)](https://clojars.org/henryw374/uri)
 [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0)
+
+Fork of a fork of a ... tl;dr basically the same as cemerick.uri but without dependency on ancient Clojurescript and a few minor tweaks
+
+
+# Remainder from parent fork README:
 
 This is a library that makes working with URIs in Clojure and ClojureScript a
 little more pleasant.
