@@ -1,12 +1,9 @@
-(defproject henryw374/uri "0.1.2"
+(defproject com.widdindustries/uri "0.1.3"
   :description "Makes working with URLs in Clojure a little more pleasant."
-  :url "http://github.com/cemerick/url"
+  :url "https://github.com/henryw374/uri"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.9.0"]
-                 [pathetic "0.5.1"]
-                 [org.clojure/clojurescript "1.10.238" :optional true]]
-
+  :dependencies [[pathetic "0.5.1"]]
   :source-paths ["src" "target/generated-src"]
   :test-paths ["test/" "target/generated-test"]
   :aliases  {"cleantest" ["do" "clean," "cljx" "once," "test,"
@@ -15,8 +12,9 @@
                    :plugins [[lein-cljsbuild "1.1.7"]
                              [lein-doo "0.1.10"]]}}
 
-  :deploy-repositories [["releases" :clojars]]
-  
+  :deploy-repositories [["releases"  {:sign-releases false :url "https://clojars.org/repo"}]
+                        ["snapshots" {:sign-releases false :url "https://clojars.org/repo"}]]
+
   :cljsbuild {:builds [{:id "test"
                         :source-paths ["src" "test"]
                         :compiler {:main cemerick.runner
