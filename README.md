@@ -1,4 +1,4 @@
-[![Clojars Project](https://img.shields.io/clojars/v/henryw374/uri.svg)](https://clojars.org/henryw374/uri)
+[![Clojars Project](https://img.shields.io/clojars/v/com.widdindustries/uri.svg)](https://clojars.org/com.widdindustries/uri)
 [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0)
 
 Fork of a fork of a ... tl;dr basically the same as cemerick.uri but without dependency on ancient Clojurescript and a few minor tweaks
