@@ -7,14 +7,6 @@
 
 (def uri-str (comp str uri))
 
-(deftest test-map-to-query-str
-  (are [x y] (= x (map->query y))
-       "a=1&b=2&c=3" {:a 1 :b 2 :c 3}
-       "a=1&b=2&c=3" {:a "1"  :b "2" :c "3"}
-       "a=1&b=2" {"a" "1" "b" "2"}
-       "a=" {"a" ""}
-       "filter%5Bname%5D%5Boperator%5D=eq&filter%5Bname%5D%5Bvalue%5D=hn" {:filter {:name {:value "hn" :operator :eq}}}))
-
 (deftest uri-roundtripping
   (let [auri (uri "https://username:password@some.host.com/database?query=string")]
     (is (= "https://username:password@some.host.com/database?query=string" (str auri)))
@@ -42,11 +34,24 @@
   (are [query map] (is (= map (query->map query)))
     "a=b" {"a" "b"}
     "a=1&b=2&c=3" {"a" "1" "b" "2" "c" "3"}
+    "a=1&a=2&a=3" {"a" ["1" "2" "3"]}
+    "ter_id=UK&ter_id=DE&q=c" {"ter_id" ["UK" "DE"] "q" "c"}
     "a=" {"a" ""}
     "a" {"a" ""}
     "filter%5Bname%5D%5Boperator%5D=eq&filter%5Bname%5D%5Bvalue%5D=hn" {"filter" {"name" {"value" "hn" "operator" "eq"}}}
     nil nil
-    "" nil))
+    "" nil)
+  (are [query map] (is (= query (map->query map)))
+    "a=1&b=2&c=3" {:a 1 :b 2 :c 3}
+    "a=1&b=2&c=3" {:a "1"  :b "2" :c "3"}
+    "a=1&b=2" {"a" "1" "b" "2"}
+    "a=" {"a" ""}
+    "a=b" {"a" "b"}
+    "a=1&b=2&c=3" {"a" "1" "b" "2" "c" "3"}
+    "a=1&a=2&a=3" {"a" ["1" "2" "3"]}
+    "ter_id=UK&ter_id=DE&q=c" {"ter_id" ["UK" "DE"] "q" "c"}
+    "filter%5Bname%5D%5Bvalue%5D=hn&filter%5Bname%5D%5Boperator%5D=eq" {"filter" {"name" {"value" "hn" "operator" "eq"}}}
+    nil nil))
 
 (deftest user-info-edgecases
   (are [user-info uri-string] (= user-info ((juxt :username :password) (uri uri-string)))

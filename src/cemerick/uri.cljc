@@ -16,11 +16,13 @@
      (some-> string str (js/encodeURIComponent) (.replace "+" "%20"))))
 
 (defn- query-map->query-seq [m]
-  (mapcat (fn [[k v]]
-            (cond
-              (map? v) (map #(cons (name k) %) (query-map->query-seq v))
-              :else [[(name k) (if (keyword? v) (name v) (str v))]]))
-          m))
+  (let [str-fn (fn [v] (if (keyword? v) (name v) (str v)))]
+    (mapcat (fn [[k v]]
+              (cond
+                (map? v)    (map #(cons (name k) %) (query-map->query-seq v))
+                (vector? v) (map #(vector (name k) %) v)
+                :else [[(name k) (str-fn v)]]))
+            m)))
 
 (defn- query-seq->simple-query-map [s]
   (map (fn [s]
@@ -46,7 +48,6 @@
   (some->> (seq m)
            (query-map->query-seq)
            (query-seq->simple-query-map)
-           sort                     ; sorting makes testing a lot easier :-)
            (map (fn [[k v]]
                   [(uri-encode k)
                    "="
@@ -76,9 +77,15 @@
   (when (not (string/blank? qstr))
     (some->> (string/split qstr #"&")
       seq
-      (mapcat split-param)
-      (map uri-decode)
-      (apply hash-map)
+      (reduce (fn [params param]
+                (let [[k v] (map uri-decode (split-param param))]
+                  (->> ((fn [vs]
+                          (if vs
+                            (conj (if (vector? vs) vs [vs]) v)
+                            v))
+                        (get params k))
+                      (assoc params k))))
+              {})
       (unnest-query-map))))
 
 (defn- port-str
@@ -157,12 +164,12 @@
    This function does not perform any uri-encoding.  Use `uri-encode` to encode
    URI path segments as desired before passing them into this fn."
   ([uri]
-    (if (instance? URI uri)
-      uri
-      (uri* uri)))
+   (if (instance? URI uri)
+     uri
+     (uri* uri)))
   ([base-uri & path-segments]
-    (let [base-uri (if (instance? URI base-uri) base-uri (uri base-uri))]
-      (assoc base-uri :path (pathetic/normalize (reduce pathetic/resolve
-                                                        (:path base-uri)
-                                                        path-segments))))))
+   (let [base-uri (if (instance? URI base-uri) base-uri (uri base-uri))]
+     (assoc base-uri :path (pathetic/normalize (reduce pathetic/resolve
+                                                       (:path base-uri)
+                                                       path-segments))))))
 
