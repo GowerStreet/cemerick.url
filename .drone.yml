@@ -25,7 +25,7 @@ pipeline:
   test:
     image: gowerstreet/forecast-build-image:1.2.3
     commands:
-      - "CI_M2_REPO_PATH=local-m2 lein doo node test once"
+      - "CI_M2_REPO_PATH=local-m2 lein test"
 
   deploy:
     image: gowerstreet/forecast-build-image:1.2.3
