@@ -1,6 +1,6 @@
-(defproject gowerstreet/uri "0.1.3"
+(defproject gowerstreet/cemerick.url "0.1.3-SNAPSHOT"
   :description "Makes working with URLs in Clojure a little more pleasant."
-  :url "https://github.com/henryw374/uri"
+  :url "http://github.com/GowerStreet/cemerick.url"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[pathetic "0.5.1"]]
