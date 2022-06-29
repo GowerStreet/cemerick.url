@@ -9,7 +9,8 @@ clone:
 
 slack: &slack
   image: plugins/slack
-  webhook: https://hooks.slack.com/services/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
+  webhook: "${SLACK_WEBHOOK}"
+  secrets: [ slack_webhook ]
   username: Drone CI
   icon_url: https://pbs.twimg.com/profile_images/573911705505259520/rShq67tG_400x400.png
 
